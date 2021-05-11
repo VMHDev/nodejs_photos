@@ -1,5 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/db');
+const users = require('./routes/users');
 
 // Start app
 const app = express();
@@ -12,6 +13,9 @@ app.get('/', function (req, res) {
     message: 'Welcome to NodeJS',
   });
 });
+
+//Use route
+app.use('/users', users);
 
 const PORT = process.env.PORT || 7777;
 app.listen(PORT, function () {
