@@ -1,6 +1,6 @@
 # Install package
 - npm init -y
-- npm i express jsonwebtoken mongoose dotenv argon2 cors
+- npm i express jsonwebtoken mongoose dotenv argon2 cors config
 - npm i --save-dev nodemon
 
 # Run
@@ -20,6 +20,8 @@
   > https://www.npmjs.com/package/argon2
 - cors: Enable CORS
   > https://www.npmjs.com/package/cors
+- config: Handle config
+  > https://www.npmjs.com/package/config
 - nodemon: Run server when change file
   > https://www.npmjs.com/package/nodemon
 
