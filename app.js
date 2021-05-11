@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 
 const connectDB = require('./config/db');
+const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
 
 // Start app
@@ -12,6 +13,7 @@ app.use(express.json()); // express accept post body with json
 connectDB();
 
 // Use route
+app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 
 // Run
