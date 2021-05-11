@@ -25,4 +25,19 @@
 - nodemon: Run server when change file
   > https://www.npmjs.com/package/nodemon
 
-# Example API
+# Test API
+  ## Use extention "REST Client"
+  - Ref: https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+  - How to use: Click Send Request in file request.http
+
+  ## Use postman -> Example request
+  - Register:
+    ```
+    POST: http://localhost:3003/api/user/register
+    BODY - raw - json
+    {
+        "name": "admin",
+        "email": "admin",
+        "password": "admin"
+    }
+    ```
