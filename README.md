@@ -37,7 +37,16 @@
     BODY - raw - json
     {
         "name": "admin",
-        "email": "admin",
+        "email": "admin@g.c",
+        "password": "admin"
+    }
+    ```
+  - Login:
+    ```
+    POST: http://localhost:3003/api/auth/login
+    BODY - raw - json
+    {
+        "email": "admin@g.c",
         "password": "admin"
     }
     ```
