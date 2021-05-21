@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
     "name": "admin",
-    "email": "admin@g.c",
+    "email": "admin@admin.com",
     "password": "admin"
 }
 ###################################################
@@ -14,7 +14,7 @@ POST http://localhost:3003/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "admin@g.c",
+    "email": "admin@admin.com",
     "password": "admin"
 }
 ###################################################
