@@ -5,6 +5,7 @@ const cors = require('cors');
 const connectDB = require('./config/db');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
+const categoryRouter = require('./routes/categories');
 
 // Start app
 const app = express();
@@ -17,6 +18,7 @@ connectDB();
 // Use route
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
+app.use('/api/category', categoryRouter);
 
 // Run
 const PORT = process.env.PORT || 3003;

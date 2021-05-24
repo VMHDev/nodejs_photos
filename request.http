@@ -5,7 +5,7 @@ Content-Type: application/json
 {
     "name": "admin",
     "email": "admin@admin.com",
-    "password": "admin"
+    "password": "admin123456"
 }
 ###################################################
 
@@ -15,6 +15,40 @@ Content-Type: application/json
 
 {
     "email": "admin@admin.com",
-    "password": "admin"
+    "password": "YWRtaW4xMjM0NTY="
 }
+###################################################
+
+# Get all category
+GET http://localhost:3003/api/category
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjE1OTI3NDV9.7mQ2oAa5cFum8TkwCqxEHYXcKjMwXuhIZR84RZu17fg
+
+###################################################
+
+###
+# Add new category
+POST http://localhost:3003/api/category
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjE1OTM2ODV9.LGtb73HpDDFsbXmdFocS4H5QrPg1VY74zG5WREHCYLo
+
+{
+    "name": "Otherssss"
+}
+###################################################
+
+###
+# Update post
+PUT http://localhost:3003/api/category/60a78be8125814328850bf5f
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjE1OTM2ODV9.LGtb73HpDDFsbXmdFocS4H5QrPg1VY74zG5WREHCYLo
+
+{
+    "name": "Others"
+}
+###################################################
+
+###
+# Delete post
+DELETE http://localhost:3003/api/category/60a78f7f000bbf4900cea32c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjE1OTM2ODV9.LGtb73HpDDFsbXmdFocS4H5QrPg1VY74zG5WREHCYLo
 ###################################################
