@@ -4,10 +4,10 @@ const verifyToken = require('../middleware/auth');
 
 const Category = require('../models/Category');
 
-// @route GET api/categories
+// @route GET api/category
 // @desc Get all category
-// @access Private
-router.get('/', verifyToken, async (req, res) => {
+// @access Public
+router.get('/', async (req, res) => {
   try {
     const categories = await Category.find({});
     res.json({ success: true, categories });
@@ -17,7 +17,7 @@ router.get('/', verifyToken, async (req, res) => {
   }
 });
 
-// @route POST api/categories
+// @route POST api/category
 // @desc Create category
 // @access Private
 router.post('/', verifyToken, async (req, res) => {
@@ -47,7 +47,7 @@ router.post('/', verifyToken, async (req, res) => {
   }
 });
 
-// @route PUT api/categories
+// @route PUT api/category
 // @desc Update category
 // @access Private
 router.put('/:id', verifyToken, async (req, res) => {
@@ -90,7 +90,7 @@ router.put('/:id', verifyToken, async (req, res) => {
   }
 });
 
-// @route DELETE api/categories
+// @route DELETE api/category
 // @desc Delete category
 // @access Private
 router.delete('/:id', verifyToken, async (req, res) => {
