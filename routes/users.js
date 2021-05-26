@@ -12,7 +12,7 @@ const User = require('../models/User');
 router.get('/:id', async (req, res) => {
   try {
     const user = await User.findOne({ _id: req.params.id }).select(
-      '-password -__v -createdAt'
+      '-password -__v -registered_date'
     );
     res.json({ success: true, user });
   } catch (error) {
@@ -27,7 +27,7 @@ router.get('/:id', async (req, res) => {
 router.post('/email', async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email }).select(
-      '-password -__v -createdAt'
+      '-password -__v -registered_date'
     );
     res.json({ success: true, user });
   } catch (error) {
@@ -83,7 +83,7 @@ router.post('/register', async (req, res) => {
 // @route PUT api/user
 // @desc Put Update user
 // @access Private
-router.put('/:id', verifyToken, async (req, res) => {
+router.put('/:id', async (req, res) => {
   const { name, email, password } = req.body;
 
   // Simple validation
@@ -104,10 +104,11 @@ router.put('/:id', verifyToken, async (req, res) => {
 
   // Update data
   try {
+    const hashedPassword = await argon2.hash(password);
     let updatedUser = {
       name,
       email,
-      password,
+      password: hashedPassword,
     };
 
     const userUpdateCondition = { _id: req.params.id };
@@ -128,7 +129,6 @@ router.put('/:id', verifyToken, async (req, res) => {
     res.json({
       success: true,
       message: 'Update user success!',
-      user: updatedUser,
     });
   } catch (error) {
     console.log(error);
