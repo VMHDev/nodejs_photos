@@ -1,3 +1,19 @@
+# Get user with id
+GET http://localhost:3003/api/user/609dff5e44be6645c0eb7b9f
+
+################################################
+
+###
+# Get user with email
+POST http://localhost:3003/api/user/email
+Content-Type: application/json
+
+{
+    "email": "admin@admin.com"
+}
+###################################################
+
+###
 # Register
 POST http://localhost:3003/api/user/register
 Content-Type: application/json
@@ -9,6 +25,7 @@ Content-Type: application/json
 }
 ###################################################
 
+###
 # Login
 POST http://localhost:3003/api/auth/login
 Content-Type: application/json
@@ -19,6 +36,44 @@ Content-Type: application/json
 }
 ###################################################
 
+###
+# Update user
+PUT http://localhost:3003/api/user/609dff5e44be6645c0eb7b9f
+Content-Type: application/json
+
+{
+    "name": "admin",
+    "email": "admin@admin.com"
+}
+###################################################
+
+###
+# Change password
+PUT http://localhost:3003/api/auth/password/609dff5e44be6645c0eb7b9f
+Content-Type: application/json
+
+{
+    "password": "YWRtaW4xMjM0NTY="
+}
+###################################################
+
+###
+# Get token
+GET http://localhost:3003/api/auth/token-password/609dff5e44be6645c0eb7b9f-z8lSf1dYBj
+###################################################
+
+###
+# Add token
+POST http://localhost:3003/api/auth/token-password
+Content-Type: application/json
+
+{
+    "user_id": "609dff5e44be6645c0eb7b9f",
+    "token": "609dff5e44be6645c0eb7b9f-z8lSf1dYBj"
+}
+###################################################
+
+###
 # Get all category
 GET http://localhost:3003/api/category
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjE1OTI3NDV9.7mQ2oAa5cFum8TkwCqxEHYXcKjMwXuhIZR84RZu17fg

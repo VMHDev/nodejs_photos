@@ -1,8 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const categorySchema = new Schema({
-  name: {
+const userSchema = new Schema({
+  user_id: {
+    type: String,
+    required: true,
+  },
+  token: {
     type: String,
     required: true,
   },
@@ -12,4 +16,4 @@ const categorySchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('category', categorySchema);
+module.exports = mongoose.model('token', userSchema);
