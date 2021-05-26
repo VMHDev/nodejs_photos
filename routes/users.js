@@ -84,7 +84,11 @@ router.post('/register', async (req, res) => {
 // @desc Put Update user
 // @access Private
 router.put('/:id', async (req, res) => {
-  const { name, email, password } = req.body;
+  if (!req.params.id) {
+    return res.status(400).json({ success: false, message: 'User undefined' });
+  }
+
+  const { name, email } = req.body;
 
   // Simple validation
   if (!name)
@@ -97,18 +101,11 @@ router.put('/:id', async (req, res) => {
       .status(400)
       .json({ success: false, message: 'Email is required' });
 
-  if (!password)
-    return res
-      .status(400)
-      .json({ success: false, message: 'Password is required' });
-
   // Update data
   try {
-    const hashedPassword = await argon2.hash(password);
     let updatedUser = {
       name,
       email,
-      password: hashedPassword,
     };
 
     const userUpdateCondition = { _id: req.params.id };

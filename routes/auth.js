@@ -40,11 +40,63 @@ router.post('/login', async (req, res) => {
       process.env.ACCESS_TOKEN_SECRET
     );
 
+    // Remove info unnecessary
+    // Ref: https://medium.com/data-scraper-tips-tricks/create-an-object-from-another-in-one-line-es6-96125ec6c834
+    let userPublic = (({ _id, name, email }) => ({ _id, name, email }))(user);
+
     res.json({
       success: true,
       message: 'User logged in successfully',
       accessToken,
-      user,
+      user: userPublic,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
+// @route PUT api/user
+// @desc Put Update user
+// @access Private
+router.put('/password/:id', async (req, res) => {
+  if (!req.params.id) {
+    return res.status(400).json({ success: false, message: 'User undefined' });
+  }
+
+  const { password } = req.body;
+
+  // Simple validation
+  if (!password)
+    return res
+      .status(400)
+      .json({ success: false, message: 'Password is required' });
+
+  // Update data
+  try {
+    const hashedPassword = await argon2.hash(password);
+    let updatedUser = {
+      password: hashedPassword,
+    };
+
+    const userUpdateCondition = { _id: req.params.id };
+
+    updatedUser = await User.findOneAndUpdate(
+      userUpdateCondition,
+      updatedUser,
+      { new: true }
+    );
+
+    // User not authorised to update user or user not found
+    if (!updatedUser)
+      return res.status(401).json({
+        success: false,
+        message: 'User not found or user not authorised',
+      });
+
+    res.json({
+      success: true,
+      message: 'Update user success!',
     });
   } catch (error) {
     console.log(error);

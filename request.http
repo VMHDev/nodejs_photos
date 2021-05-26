@@ -42,8 +42,17 @@ PUT http://localhost:3003/api/user/609dff5e44be6645c0eb7b9f
 Content-Type: application/json
 
 {
-    "name": "admin admin",
-    "email": "admin@admin.com",
+    "name": "admin",
+    "email": "admin@admin.com"
+}
+###################################################
+
+###
+# Change password
+PUT http://localhost:3003/api/auth/password/609dff5e44be6645c0eb7b9f
+Content-Type: application/json
+
+{
     "password": "YWRtaW4xMjM0NTY="
 }
 ###################################################
