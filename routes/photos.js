@@ -21,6 +21,22 @@ router.get('/', verifyToken, async (req, res) => {
 });
 
 // @route GET api/photo
+// @desc Get photo public
+// @access Private
+router.get('/public', async (req, res) => {
+  try {
+    const photos = await Photo.find({ isPublic: true })
+      .populate('user', ['email'])
+      .populate('category', ['_id', 'name'])
+      .select('-__v -registered_date');
+    res.json({ success: true, photos });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
+// @route GET api/photo
 // @desc Get photo with user id
 // @access Private
 router.post('/user', verifyToken, async (req, res) => {
