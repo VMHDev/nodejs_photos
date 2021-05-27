@@ -1,20 +1,143 @@
+# Get user with id
+GET http://localhost:3003/api/user/609dff5e44be6645c0eb7b9f
+
+################################################
+
+###
+# Get user with email
+POST http://localhost:3003/api/user/email
+Content-Type: application/json
+
+{
+    "email": "admin@admin.com"
+}
+###################################################
+
+###
 # Register
 POST http://localhost:3003/api/user/register
 Content-Type: application/json
 
 {
     "name": "admin",
-    "email": "admin@g.c",
-    "password": "admin"
+    "email": "admin@admin.com",
+    "password": "admin123456"
 }
 ###################################################
 
+###
 # Login
 POST http://localhost:3003/api/auth/login
 Content-Type: application/json
 
 {
-    "email": "admin@g.c",
-    "password": "admin"
+    "email": "admin@admin.com",
+    "password": "YWRtaW4xMjM0NTY="
+}
+###################################################
+
+###
+# Update user
+PUT http://localhost:3003/api/user/609dff5e44be6645c0eb7b9f
+Content-Type: application/json
+
+{
+    "name": "admin",
+    "email": "admin@admin.com"
+}
+###################################################
+
+###
+# Change password
+PUT http://localhost:3003/api/auth/password/609dff5e44be6645c0eb7b9f
+Content-Type: application/json
+
+{
+    "password": "YWRtaW4xMjM0NTY="
+}
+###################################################
+
+###
+# Get token
+GET http://localhost:3003/api/auth/token-password/609dff5e44be6645c0eb7b9f-z8lSf1dYBj
+###################################################
+
+###
+# Add token
+POST http://localhost:3003/api/auth/token-password
+Content-Type: application/json
+
+{
+    "user_id": "609dff5e44be6645c0eb7b9f",
+    "token": "609dff5e44be6645c0eb7b9f-z8lSf1dYBj"
+}
+###################################################
+
+###
+# Get all category
+GET http://localhost:3003/api/category
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjIwMjYyMTl9.B9KYVPGC521makJIKifNAxon7IM9qWdbC6vPsxv2k6w
+
+###################################################
+
+###
+# Add new category
+POST http://localhost:3003/api/category
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjIwODU0Mjd9.OA8yRhQFXq5nu8NiEyiX0EYWKcXohL7PsSclZPT4jO8
+
+{
+    "name": "Otherssss"
+}
+###################################################
+
+###
+# Update category
+PUT http://localhost:3003/api/category/60a78be8125814328850bf5f
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjE1OTM2ODV9.LGtb73HpDDFsbXmdFocS4H5QrPg1VY74zG5WREHCYLo
+
+{
+    "name": "Others"
+}
+###################################################
+
+###
+# Delete category
+DELETE http://localhost:3003/api/category/60a78f7f000bbf4900cea32c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjE1OTM2ODV9.LGtb73HpDDFsbXmdFocS4H5QrPg1VY74zG5WREHCYLo
+###################################################
+
+###
+# Get all photo
+GET http://localhost:3003/api/photo
+    # Chuỗi Authorization có dạng Bearer + <Chuỗi access token> | Chuỗi access token có được sau khi send request login
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjIwMjYyMTl9.B9KYVPGC521makJIKifNAxon7IM9qWdbC6vPsxv2k6w
+
+###################################################
+
+###
+# Get photo with user id
+POST http://localhost:3003/api/photo/user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjIwMjYyMTl9.B9KYVPGC521makJIKifNAxon7IM9qWdbC6vPsxv2k6w
+
+{
+    "userId": "60a78be8125814328850bf5f"
+}
+###################################################
+
+###
+# Add new photo
+POST http://localhost:3003/api/photo
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjIwOTg2MzN9.N3J0s7YBMrDb7Xp7KvYA49hd4j5WtAIYXPaw14uLiZg
+
+{
+    "categoryId": "60a78be8125814328850bf5f",
+    "path": "https://picsum.photos/id/649/300/300",
+    "title": "quaerat velit veniam amet cupiditate aut numquam ut sequi",
+    "desc": "in non odio excepturi sint eum\nlabore voluptates vitae quia qui et\ninventore itaque rerum\nveniam non exercitationem delectus aut",
+    "userId": "609dff5e44be6645c0eb7b9f"
 }
 ###################################################
