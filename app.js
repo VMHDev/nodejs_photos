@@ -6,6 +6,7 @@ const connectDB = require('./config/db');
 const authRouter = require('./routes/auth');
 const userRouter = require('./routes/users');
 const categoryRouter = require('./routes/categories');
+const photoRouter = require('./routes/photos');
 
 // Start app
 const app = express();
@@ -19,6 +20,7 @@ connectDB();
 app.use('/api/auth', authRouter);
 app.use('/api/user', userRouter);
 app.use('/api/category', categoryRouter);
+app.use('/api/photo', photoRouter);
 
 // Run
 const PORT = process.env.PORT || 3003;

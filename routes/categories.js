@@ -9,7 +9,7 @@ const Category = require('../models/Category');
 // @access Public
 router.get('/', async (req, res) => {
   try {
-    const categories = await Category.find({});
+    const categories = await Category.find({}).select('-__v -registered_date');
     res.json({ success: true, categories });
   } catch (error) {
     console.log(error);
