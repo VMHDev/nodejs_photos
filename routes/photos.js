@@ -40,7 +40,7 @@ router.post('/user', verifyToken, async (req, res) => {
 // @desc Create photo
 // @access Private
 router.post('/', verifyToken, async (req, res) => {
-  const { categoryId, path, title, desc, userId } = req.body;
+  const { categoryId, path, title, desc, userId, isPublic } = req.body;
 
   // Validation
   if (!path)
@@ -63,6 +63,7 @@ router.post('/', verifyToken, async (req, res) => {
       title,
       desc,
       user: userId,
+      isPublic,
     });
 
     // Save database
@@ -74,6 +75,7 @@ router.post('/', verifyToken, async (req, res) => {
       path,
       title,
       desc,
+      isPublic,
     }))(newPhoto);
 
     res.json({
@@ -91,7 +93,7 @@ router.post('/', verifyToken, async (req, res) => {
 // @desc Update photo
 // @access Private
 router.put('/:id', verifyToken, async (req, res) => {
-  const { category, path, title, desc } = req.body;
+  const { category, path, title, desc, isPublic } = req.body;
 
   // Validation
   if (!path)
@@ -113,6 +115,7 @@ router.put('/:id', verifyToken, async (req, res) => {
       path,
       title,
       desc,
+      isPublic,
     };
 
     const photoUpdateCondition = { _id: req.params.id };
@@ -130,6 +133,7 @@ router.put('/:id', verifyToken, async (req, res) => {
       path,
       title,
       desc,
+      isPublic,
     }))(updatedPhoto);
 
     // User not authorised to update photo or photo not found
