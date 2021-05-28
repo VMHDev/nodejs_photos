@@ -37,6 +37,16 @@ Content-Type: application/json
 ###################################################
 
 ###
+# Refresh token
+POST http://localhost:3003/api/auth/token-refresh
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjIyMDI2MjMsImV4cCI6MTYyMjIwNjIyM30.YR7usLJLY_NeyjN0X69tf93dDFFxgDUYFiyoRJ5BN8A8BsuBNBJ2lfaDizzFZAtY"
+}
+###################################################
+
+###
 # Update user
 PUT http://localhost:3003/api/user/609dff5e44be6645c0eb7b9f
 Content-Type: application/json

@@ -34,12 +34,6 @@ router.post('/login', async (req, res) => {
         .status(400)
         .json({ success: false, message: 'Incorrect email or password' });
 
-    // All good
-    // Return token
-    const accessToken = jwt.sign(
-      { userId: user._id }, // // Dữ liệu lưu trong access token
-      process.env.ACCESS_TOKEN_SECRET
-    );
     // Create JWT
     const tokens = generateTokens({ id: user._id, email: user.email });
 
@@ -67,9 +61,53 @@ router.post('/login', async (req, res) => {
     res.json({
       success: true,
       message: 'User logged in successfully',
-      accessToken,
+      accessToken: tokens.accessToken,
       user: userPublic,
     });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
+// @route POST api/auth/login
+// @desc Post Refresh token
+// @access Public
+router.post('/token-refresh', async (req, res) => {
+  const refreshToken = req.body.refreshToken;
+  if (!refreshToken)
+    return res
+      .status(401)
+      .json({ success: false, message: 'Refresh token is required' });
+
+  // Check for existing user
+  const user = await User.findOne({ refresh_token: refreshToken });
+
+  if (!user)
+    return res
+      .status(403)
+      .json({ success: false, message: 'Refresh token invalid' });
+
+  try {
+    // Verify refresh token
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+
+    // Create JWT
+    const tokens = generateTokens({ id: user._id, email: user.email });
+
+    // Replace refresh token in database
+    let updatedUser = {
+      refresh_token: tokens.refreshToken,
+    };
+    const userUpdateCondition = { _id: user._id };
+
+    updatedUser = await User.findOneAndUpdate(
+      userUpdateCondition,
+      updatedUser,
+      { new: true }
+    );
+
+    res.json(tokens);
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Internal server error' });
