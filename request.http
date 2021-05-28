@@ -76,7 +76,7 @@ Content-Type: application/json
 ###
 # Get all category
 GET http://localhost:3003/api/category
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjIwMjYyMTl9.B9KYVPGC521makJIKifNAxon7IM9qWdbC6vPsxv2k6w
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjIyMDEzMTB9.TVvBn3xUu-yYcBcEN5Ml8jC71DS1h6cKPgc86drTxtU
 
 ###################################################
 
@@ -111,14 +111,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZ
 ###
 # Get all photo
 GET http://localhost:3003/api/photo
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjIwMjYyMTl9.B9KYVPGC521makJIKifNAxon7IM9qWdbC6vPsxv2k6w
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjIyMDEzMTB9.TVvBn3xUu-yYcBcEN5Ml8jC71DS1h6cKPgc86drTxtU
 
 ###################################################
 
 ###
-# Get photo private
+# Get photo public
 GET http://localhost:3003/api/photo/public
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjIxMTE3ODh9.Ovbsq3wLO7Qx-a_ZgQb_gfbb6JwtjUNi_VuPsxdDoiA
 
 ###################################################
 

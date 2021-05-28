@@ -5,9 +5,10 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
 const Token = require('../models/Token');
+const { generateTokens } = require('../utils/helper');
 
 // @route POST api/auth/login
-// @desc Login user
+// @desc Post Login user
 // @access Public
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -36,13 +37,32 @@ router.post('/login', async (req, res) => {
     // All good
     // Return token
     const accessToken = jwt.sign(
-      { userId: user._id },
+      { userId: user._id }, // // Dữ liệu lưu trong access token
       process.env.ACCESS_TOKEN_SECRET
+    );
+    // Create JWT
+    const tokens = generateTokens({ id: user._id, email: user.email });
+
+    // Update refresh token in database
+    let updatedUser = {
+      refresh_token: tokens.refreshToken,
+    };
+    const userUpdateCondition = { _id: user._id };
+
+    updatedUser = await User.findOneAndUpdate(
+      userUpdateCondition,
+      updatedUser,
+      { new: true }
     );
 
     // Remove info unnecessary
     // Ref: https://medium.com/data-scraper-tips-tricks/create-an-object-from-another-in-one-line-es6-96125ec6c834
-    let userPublic = (({ _id, name, email }) => ({ _id, name, email }))(user);
+    let userPublic = (({ _id, name, email, refresh_token }) => ({
+      _id,
+      name,
+      email,
+      refresh_token,
+    }))(updatedUser);
 
     res.json({
       success: true,
@@ -57,7 +77,7 @@ router.post('/login', async (req, res) => {
 });
 
 // @route PUT api/user
-// @desc Put Update user
+// @desc Put Change password
 // @access Private
 router.put('/password/:id', async (req, res) => {
   if (!req.params.id) {
