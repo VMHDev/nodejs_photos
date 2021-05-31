@@ -7,6 +7,7 @@ const User = require('../models/User');
 const Token = require('../models/Token');
 const verifyToken = require('../middleware/auth');
 const { generateTokens } = require('../utils/helper');
+const { REFRESH_TOKEN_SECRET } = require('../constants/system');
 
 // @route POST api/auth/login
 // @desc Post Login user
@@ -91,7 +92,7 @@ router.post('/token-refresh', async (req, res) => {
 
   try {
     // Verify refresh token
-    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
+    jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
 
     // Create JWT
     const tokens = generateTokens({ id: user._id, email: user.email });

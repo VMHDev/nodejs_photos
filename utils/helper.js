@@ -1,4 +1,10 @@
 const jwt = require('jsonwebtoken');
+const {
+  ACCESS_TOKEN_SECRET,
+  REFRESH_TOKEN_SECRET,
+  ACCESS_TOKEN_EXPIRES,
+  REFRESH_TOKEN_EXPIRES,
+} = require('../constants/system');
 
 const generateTokens = (payload) => {
   const { id, email } = payload;
@@ -6,19 +12,19 @@ const generateTokens = (payload) => {
   // Create JWT
   const accessToken = jwt.sign(
     { userId: id, userEmail: email },
-    process.env.ACCESS_TOKEN_SECRET,
+    ACCESS_TOKEN_SECRET,
     {
       algorithm: 'HS512',
-      expiresIn: '60s',
+      expiresIn: ACCESS_TOKEN_EXPIRES,
     }
   );
 
   const refreshToken = jwt.sign(
     { userId: id, userEmail: email },
-    process.env.REFRESH_TOKEN_SECRET,
+    REFRESH_TOKEN_SECRET,
     {
       algorithm: 'HS384',
-      expiresIn: '1h',
+      expiresIn: REFRESH_TOKEN_EXPIRES,
     }
   );
 

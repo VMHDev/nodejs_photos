@@ -4,6 +4,7 @@ const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
+const { ACCESS_TOKEN_SECRET } = require('../constants/system');
 
 // @route GET api/user
 // @desc Get user with email
@@ -62,10 +63,7 @@ router.post('/register', async (req, res) => {
     await newUser.save();
 
     // Return token
-    const accessToken = jwt.sign(
-      { userId: newUser._id },
-      process.env.ACCESS_TOKEN_SECRET
-    );
+    const accessToken = jwt.sign({ userId: newUser._id }, ACCESS_TOKEN_SECRET);
 
     // Response
     res.json({
