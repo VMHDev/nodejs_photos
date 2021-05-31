@@ -1,3 +1,5 @@
+# Install extension REST Client for run
+    # https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 # Get user with id
 GET http://localhost:3003/api/user/609dff5e44be6645c0eb7b9f
 
@@ -42,8 +44,15 @@ POST http://localhost:3003/api/auth/token-refresh
 Content-Type: application/json
 
 {
-    "refreshToken": "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjIyMDI2MjMsImV4cCI6MTYyMjIwNjIyM30.YR7usLJLY_NeyjN0X69tf93dDFFxgDUYFiyoRJ5BN8A8BsuBNBJ2lfaDizzFZAtY"
+    "refreshToken": "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI0Mjg1NjMsImV4cCI6MTYyMjQzMjE2M30.TqUALsYS7cD6XNR4rgbLYpRE4m8pI_8ht2FwSXrTxMhXpUPL8_LVoJV7_hhI2nEr"
 }
+###################################################
+
+###
+# Logout
+POST http://localhost:3003/api/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI0MzA5MzcsImV4cCI6MTYyMjQzMDk5N30.7hXaLLmE7YHSW9kZ4TUxn4fFeBpi4cfmCWn847XciwvYidgHaV1aeM_rW4-47wIAXqS2ECjrP0FKbK70AiL9uQ
+
 ###################################################
 
 ###

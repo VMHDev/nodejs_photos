@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
 const Token = require('../models/Token');
+const verifyToken = require('../middleware/auth');
 const { generateTokens } = require('../utils/helper');
 
 // @route POST api/auth/login
@@ -70,7 +71,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// @route POST api/auth/login
+// @route POST api/auth/token-refresh
 // @desc Post Refresh token
 // @access Public
 router.post('/token-refresh', async (req, res) => {
@@ -107,7 +108,44 @@ router.post('/token-refresh', async (req, res) => {
       { new: true }
     );
 
-    res.json(tokens);
+    res.json({
+      success: true,
+      message: 'Update success!',
+      tokens,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
+// @route POST api/auth/logout
+// @desc Post Logout
+// @access Public
+router.post('/logout', verifyToken, async (req, res) => {
+  // Check for existing user
+  const user = await User.findOne({ _id: req.userId });
+
+  if (!user)
+    return res.status(403).json({ success: false, message: 'User not found' });
+
+  try {
+    // Remove refresh token in database
+    let updatedUser = {
+      refresh_token: null,
+    };
+    const userUpdateCondition = { _id: user._id };
+
+    updatedUser = await User.findOneAndUpdate(
+      userUpdateCondition,
+      updatedUser,
+      { new: true }
+    );
+
+    res.json({
+      success: true,
+      message: 'Update success!',
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: 'Internal server error' });
