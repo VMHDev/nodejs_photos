@@ -95,11 +95,11 @@ router.post('/token-refresh', async (req, res) => {
     jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
 
     // Create JWT
-    const tokens = generateTokens({ id: user._id, email: user.email });
+    const token = generateTokens({ id: user._id, email: user.email });
 
     // Replace refresh token in database
     let updatedUser = {
-      refresh_token: tokens.refreshToken,
+      refresh_token: token.refreshToken,
     };
     const userUpdateCondition = { _id: user._id };
 
@@ -112,7 +112,7 @@ router.post('/token-refresh', async (req, res) => {
     res.json({
       success: true,
       message: 'Update success!',
-      tokens,
+      token,
     });
   } catch (error) {
     console.log(error);

@@ -22,7 +22,7 @@ const photoSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'user',
   },
-  isPublic: {
+  is_public: {
     type: Boolean,
     default: false,
   },

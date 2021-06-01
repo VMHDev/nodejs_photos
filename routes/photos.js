@@ -25,7 +25,7 @@ router.get('/', verifyToken, async (req, res) => {
 // @access Private
 router.get('/public', async (req, res) => {
   try {
-    const photos = await Photo.find({ isPublic: true })
+    const photos = await Photo.find({ is_public: true })
       .populate('user', ['email'])
       .populate('category', ['_id', 'name'])
       .select('-__v -registered_date');
@@ -56,7 +56,7 @@ router.post('/user', verifyToken, async (req, res) => {
 // @desc Create photo
 // @access Private
 router.post('/', verifyToken, async (req, res) => {
-  const { categoryId, path, title, desc, userId, isPublic } = req.body;
+  const { categoryId, path, title, desc, userId, is_public } = req.body;
 
   // Validation
   if (!path)
@@ -79,7 +79,7 @@ router.post('/', verifyToken, async (req, res) => {
       title,
       desc,
       user: userId,
-      isPublic,
+      is_public,
     });
 
     // Save database
@@ -91,7 +91,7 @@ router.post('/', verifyToken, async (req, res) => {
       path,
       title,
       desc,
-      isPublic,
+      is_public,
     }))(newPhoto);
 
     res.json({
@@ -109,7 +109,7 @@ router.post('/', verifyToken, async (req, res) => {
 // @desc Update photo
 // @access Private
 router.put('/:id', verifyToken, async (req, res) => {
-  const { category, path, title, desc, isPublic } = req.body;
+  const { category, path, title, desc, is_public } = req.body;
 
   // Validation
   if (!path)
@@ -131,7 +131,7 @@ router.put('/:id', verifyToken, async (req, res) => {
       path,
       title,
       desc,
-      isPublic,
+      is_public,
     };
 
     const photoUpdateCondition = { _id: req.params.id };
@@ -149,7 +149,7 @@ router.put('/:id', verifyToken, async (req, res) => {
       path,
       title,
       desc,
-      isPublic,
+      is_public,
     }))(updatedPhoto);
 
     // User not authorised to update photo or photo not found

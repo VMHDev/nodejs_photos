@@ -44,7 +44,7 @@ POST http://localhost:3003/api/auth/token-refresh
 Content-Type: application/json
 
 {
-    "refreshToken": "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI0MzMyMTQsImV4cCI6MTYyMjQzNjgxNH0.-1ym1O0_cedfwVnhCiqgTIs2YGr-Pg7zccUCKlLLgLTzH2WuazUjj4S4-HA3xU6J"
+    "refreshToken": "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI1MjkxNDcsImV4cCI6MTYyMjUzMjc0N30.XX0pNwYzEctFuYGpRxK_HfAgU4KVFmDfFQ9fb2H2F8X18c5_5qn61csvM1JiFuf5"
 }
 ###################################################
 
@@ -58,6 +58,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZ
 ###
 # Update user
 PUT http://localhost:3003/api/user/609dff5e44be6645c0eb7b9f
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI1NDg4MDEsImV4cCI6MTYyMjU0ODg2MX0.LW2hg9AWhEW1t8k8NSUS1_azFqK8E2Kv-WDGsk0N5scoNj12cx2hpt_gUouB0bma33rrUxfM-TmUU6tcgDI1cw
 Content-Type: application/json
 
 {
@@ -144,7 +145,7 @@ GET http://localhost:3003/api/photo/public
 # Get photo with user id
 POST http://localhost:3003/api/photo/user
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjIwMjYyMTl9.B9KYVPGC521makJIKifNAxon7IM9qWdbC6vPsxv2k6w
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI1NDU3MTYsImV4cCI6MTYyMjU0NTc3Nn0.mDCgVpkrMsGKWjtTQLNIoqJiu3vnUq9Ywq47Xp1o0I_0B8u_puCClaIVID68UD2aXoVktu6pTO8fyWgCDvlTOA
 
 {
     "userId": "60a78be8125814328850bf5f"

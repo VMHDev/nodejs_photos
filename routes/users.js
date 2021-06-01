@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
+const verifyToken = require('../middleware/auth');
 
 const User = require('../models/User');
 const { ACCESS_TOKEN_SECRET } = require('../constants/system');
@@ -80,7 +81,7 @@ router.post('/register', async (req, res) => {
 // @route PUT api/user
 // @desc Put Update user
 // @access Private
-router.put('/:id', async (req, res) => {
+router.put('/:id', verifyToken, async (req, res) => {
   if (!req.params.id) {
     return res.status(400).json({ success: false, message: 'User undefined' });
   }
