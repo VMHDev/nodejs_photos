@@ -120,10 +120,10 @@ router.post('/token-refresh', async (req, res) => {
   }
 });
 
-// @route POST api/auth/logout
-// @desc Post Logout
-// @access Public
-router.post('/logout', verifyToken, async (req, res) => {
+// @route GET api/auth/logout
+// @desc Get Logout
+// @access Private
+router.get('/logout', verifyToken, async (req, res) => {
   // Check for existing user
   const user = await User.findOne({ _id: req.userId });
 

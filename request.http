@@ -50,8 +50,8 @@ Content-Type: application/json
 
 ###
 # Logout
-POST http://localhost:3003/api/auth/logout
-Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI0MzA5MzcsImV4cCI6MTYyMjQzMDk5N30.7hXaLLmE7YHSW9kZ4TUxn4fFeBpi4cfmCWn847XciwvYidgHaV1aeM_rW4-47wIAXqS2ECjrP0FKbK70AiL9uQ
+GET http://localhost:3003/api/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI2MDQ3MDYsImV4cCI6MTYyMjYwNDc2Nn0.5WjgKbRgXtkm-6gF-ISJ9Xs-9qJMjJirKCeLa_ND4nWi8W5ZWDkW9mFNTPhFPLyhZ6xbLm-co9RVVzpbSYpdsg
 
 ###################################################
 
@@ -143,13 +143,8 @@ GET http://localhost:3003/api/photo/public
 
 ###
 # Get photo with user id
-POST http://localhost:3003/api/photo/user
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI1NDU3MTYsImV4cCI6MTYyMjU0NTc3Nn0.mDCgVpkrMsGKWjtTQLNIoqJiu3vnUq9Ywq47Xp1o0I_0B8u_puCClaIVID68UD2aXoVktu6pTO8fyWgCDvlTOA
-
-{
-    "userId": "60a78be8125814328850bf5f"
-}
+GET http://localhost:3003/api/photo/user
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI2MDc0OTMsImV4cCI6MTYyMjYwNzU1M30.G31AKpqchlHV4Pus8p2Y-gympJVZzjH1UG2zELSqH8kpzji7KxFhobYQujhj-PQxjHSOp08LaI2CU8B-GbmcIA
 ###################################################
 
 ###

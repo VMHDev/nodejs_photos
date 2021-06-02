@@ -39,7 +39,7 @@ router.get('/public', async (req, res) => {
 // @route GET api/photo
 // @desc Get photo with user id
 // @access Private
-router.post('/user', verifyToken, async (req, res) => {
+router.get('/user', verifyToken, async (req, res) => {
   try {
     const photos = await Photo.find({ user: req.userId })
       .populate('user', ['email'])
