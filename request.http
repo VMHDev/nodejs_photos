@@ -1,3 +1,5 @@
+# Install extension REST Client for run
+    # https://marketplace.visualstudio.com/items?itemName=humao.rest-client
 # Get user with id
 GET http://localhost:3003/api/user/609dff5e44be6645c0eb7b9f
 
@@ -37,8 +39,26 @@ Content-Type: application/json
 ###################################################
 
 ###
+# Refresh token
+POST http://localhost:3003/api/auth/token-refresh
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzM4NCIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI1MjkxNDcsImV4cCI6MTYyMjUzMjc0N30.XX0pNwYzEctFuYGpRxK_HfAgU4KVFmDfFQ9fb2H2F8X18c5_5qn61csvM1JiFuf5"
+}
+###################################################
+
+###
+# Logout
+GET http://localhost:3003/api/auth/logout
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI2MDQ3MDYsImV4cCI6MTYyMjYwNDc2Nn0.5WjgKbRgXtkm-6gF-ISJ9Xs-9qJMjJirKCeLa_ND4nWi8W5ZWDkW9mFNTPhFPLyhZ6xbLm-co9RVVzpbSYpdsg
+
+###################################################
+
+###
 # Update user
 PUT http://localhost:3003/api/user/609dff5e44be6645c0eb7b9f
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI1NDg4MDEsImV4cCI6MTYyMjU0ODg2MX0.LW2hg9AWhEW1t8k8NSUS1_azFqK8E2Kv-WDGsk0N5scoNj12cx2hpt_gUouB0bma33rrUxfM-TmUU6tcgDI1cw
 Content-Type: application/json
 
 {
@@ -76,7 +96,7 @@ Content-Type: application/json
 ###
 # Get all category
 GET http://localhost:3003/api/category
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjIwMjYyMTl9.B9KYVPGC521makJIKifNAxon7IM9qWdbC6vPsxv2k6w
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjIyMDEzMTB9.TVvBn3xUu-yYcBcEN5Ml8jC71DS1h6cKPgc86drTxtU
 
 ###################################################
 
@@ -111,20 +131,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZ
 ###
 # Get all photo
 GET http://localhost:3003/api/photo
-    # Chuỗi Authorization có dạng Bearer + <Chuỗi access token> | Chuỗi access token có được sau khi send request login
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjIwMjYyMTl9.B9KYVPGC521makJIKifNAxon7IM9qWdbC6vPsxv2k6w
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjIyMDEzMTB9.TVvBn3xUu-yYcBcEN5Ml8jC71DS1h6cKPgc86drTxtU
+
+###################################################
+
+###
+# Get photo public
+GET http://localhost:3003/api/photo/public
 
 ###################################################
 
 ###
 # Get photo with user id
-POST http://localhost:3003/api/photo/user
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJpYXQiOjE2MjIwMjYyMTl9.B9KYVPGC521makJIKifNAxon7IM9qWdbC6vPsxv2k6w
-
-{
-    "userId": "60a78be8125814328850bf5f"
-}
+GET http://localhost:3003/api/photo/user
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI2MDc0OTMsImV4cCI6MTYyMjYwNzU1M30.G31AKpqchlHV4Pus8p2Y-gympJVZzjH1UG2zELSqH8kpzji7KxFhobYQujhj-PQxjHSOp08LaI2CU8B-GbmcIA
 ###################################################
 
 ###

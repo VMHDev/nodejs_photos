@@ -22,6 +22,10 @@ const photoSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'user',
   },
+  is_public: {
+    type: Boolean,
+    default: false,
+  },
   registered_date: {
     type: Date,
     default: Date.now,

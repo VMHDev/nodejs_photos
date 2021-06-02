@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { ACCESS_TOKEN_SECRET } = require('../constants/system');
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.header('Authorization');
@@ -10,8 +11,10 @@ const verifyToken = (req, res, next) => {
       .json({ success: false, message: 'Access token not found' });
 
   try {
-    const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+    const decoded = jwt.verify(token, ACCESS_TOKEN_SECRET);
 
+    // Trả về dữ liệu trong access token
+    req.accessTokenPayload = decoded;
     req.userId = decoded.userId;
     next();
   } catch (error) {

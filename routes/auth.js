@@ -5,9 +5,12 @@ const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
 const Token = require('../models/Token');
+const verifyToken = require('../middleware/auth');
+const { generateTokens } = require('../utils/helper');
+const { REFRESH_TOKEN_SECRET } = require('../constants/system');
 
 // @route POST api/auth/login
-// @desc Login user
+// @desc Post Login user
 // @access Public
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
@@ -33,21 +36,34 @@ router.post('/login', async (req, res) => {
         .status(400)
         .json({ success: false, message: 'Incorrect email or password' });
 
-    // All good
-    // Return token
-    const accessToken = jwt.sign(
-      { userId: user._id },
-      process.env.ACCESS_TOKEN_SECRET
+    // Create JWT
+    const tokens = generateTokens({ id: user._id, email: user.email });
+
+    // Update refresh token in database
+    let updatedUser = {
+      refresh_token: tokens.refreshToken,
+    };
+    const userUpdateCondition = { _id: user._id };
+
+    updatedUser = await User.findOneAndUpdate(
+      userUpdateCondition,
+      updatedUser,
+      { new: true }
     );
 
     // Remove info unnecessary
     // Ref: https://medium.com/data-scraper-tips-tricks/create-an-object-from-another-in-one-line-es6-96125ec6c834
-    let userPublic = (({ _id, name, email }) => ({ _id, name, email }))(user);
+    let userPublic = (({ _id, name, email, refresh_token }) => ({
+      _id,
+      name,
+      email,
+      refresh_token,
+    }))(updatedUser);
 
     res.json({
       success: true,
       message: 'User logged in successfully',
-      accessToken,
+      accessToken: tokens.accessToken,
       user: userPublic,
     });
   } catch (error) {
@@ -56,8 +72,89 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// @route POST api/auth/token-refresh
+// @desc Post Refresh token
+// @access Public
+router.post('/token-refresh', async (req, res) => {
+  const refreshToken = req.body.refreshToken;
+  if (!refreshToken)
+    return res
+      .status(401)
+      .json({ success: false, message: 'Refresh token is required' });
+
+  // Check for existing user
+  const user = await User.findOne({ refresh_token: refreshToken });
+
+  if (!user)
+    return res
+      .status(403)
+      .json({ success: false, message: 'Refresh token invalid' });
+
+  try {
+    // Verify refresh token
+    jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
+
+    // Create JWT
+    const token = generateTokens({ id: user._id, email: user.email });
+
+    // Replace refresh token in database
+    let updatedUser = {
+      refresh_token: token.refreshToken,
+    };
+    const userUpdateCondition = { _id: user._id };
+
+    updatedUser = await User.findOneAndUpdate(
+      userUpdateCondition,
+      updatedUser,
+      { new: true }
+    );
+
+    res.json({
+      success: true,
+      message: 'Update success!',
+      token,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
+// @route GET api/auth/logout
+// @desc Get Logout
+// @access Private
+router.get('/logout', verifyToken, async (req, res) => {
+  // Check for existing user
+  const user = await User.findOne({ _id: req.userId });
+
+  if (!user)
+    return res.status(403).json({ success: false, message: 'User not found' });
+
+  try {
+    // Remove refresh token in database
+    let updatedUser = {
+      refresh_token: null,
+    };
+    const userUpdateCondition = { _id: user._id };
+
+    updatedUser = await User.findOneAndUpdate(
+      userUpdateCondition,
+      updatedUser,
+      { new: true }
+    );
+
+    res.json({
+      success: true,
+      message: 'Update success!',
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, message: 'Internal server error' });
+  }
+});
+
 // @route PUT api/user
-// @desc Put Update user
+// @desc Put Change password
 // @access Private
 router.put('/password/:id', async (req, res) => {
   if (!req.params.id) {
