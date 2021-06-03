@@ -144,7 +144,7 @@ GET http://localhost:3003/api/photo/public
 ###
 # Get photo with user id
 GET http://localhost:3003/api/photo/user
-Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI2MDc0OTMsImV4cCI6MTYyMjYwNzU1M30.G31AKpqchlHV4Pus8p2Y-gympJVZzjH1UG2zELSqH8kpzji7KxFhobYQujhj-PQxjHSOp08LaI2CU8B-GbmcIA
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI3MTU3NzgsImV4cCI6MTYyMjcxNTgzOH0.gUL-7RWfwaDRlbWvkddHJl1JciSGRrxJ-JzFTcciyECUe3kgyR2gm3OHB4g3meoYm7EcJ9HY2k4xLUJIUACnwg
 ###################################################
 
 ###

@@ -6,6 +6,16 @@ const verifyToken = require('../middleware/auth');
 
 const User = require('../models/User');
 const { ACCESS_TOKEN_SECRET } = require('../constants/system');
+const {
+  MSG_INTERNAL_SERVER_ERROR,
+  MSG_USER_INFO_MISS,
+  MSG_EMAIL_EXIST,
+  MSG_UPDATE_SUCCESS,
+  MSG_USER_UNDEFINED,
+  MSG_NAME_NONE,
+  MSG_EMAIL_NONE,
+  MSG_USER_NOT_FOUND_AUTHORISED,
+} = require('../constants/message');
 
 // @route GET api/user
 // @desc Get user with email
@@ -18,7 +28,9 @@ router.get('/:id', async (req, res) => {
     res.json({ success: true, user });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
   }
 });
 
@@ -33,7 +45,9 @@ router.post('/email', async (req, res) => {
     res.json({ success: true, user });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
   }
 });
 
@@ -47,16 +61,14 @@ router.post('/register', async (req, res) => {
   if (!name || !email || !password)
     return res
       .status(400)
-      .json({ success: false, message: 'Missing email and/or password' });
+      .json({ success: false, message: MSG_USER_INFO_MISS });
 
   try {
     // Check for existing user
     const user = await User.findOne({ email });
 
     if (user)
-      return res
-        .status(400)
-        .json({ success: false, message: 'Email already token' });
+      return res.status(400).json({ success: false, message: MSG_EMAIL_EXIST });
 
     // All good
     const hashedPassword = await argon2.hash(password);
@@ -69,12 +81,14 @@ router.post('/register', async (req, res) => {
     // Response
     res.json({
       success: true,
-      message: 'User created successfully',
+      message: MSG_UPDATE_SUCCESS,
       accessToken,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
   }
 });
 
@@ -83,21 +97,19 @@ router.post('/register', async (req, res) => {
 // @access Private
 router.put('/:id', verifyToken, async (req, res) => {
   if (!req.params.id) {
-    return res.status(400).json({ success: false, message: 'User undefined' });
+    return res
+      .status(400)
+      .json({ success: false, message: MSG_USER_UNDEFINED });
   }
 
   const { name, email } = req.body;
 
   // Simple validation
   if (!name)
-    return res
-      .status(400)
-      .json({ success: false, message: 'Name is required' });
+    return res.status(400).json({ success: false, message: MSG_NAME_NONE });
 
   if (!email)
-    return res
-      .status(400)
-      .json({ success: false, message: 'Email is required' });
+    return res.status(400).json({ success: false, message: MSG_EMAIL_NONE });
 
   // Update data
   try {
@@ -118,16 +130,18 @@ router.put('/:id', verifyToken, async (req, res) => {
     if (!updatedUser)
       return res.status(401).json({
         success: false,
-        message: 'User not found or user not authorised',
+        message: MSG_USER_NOT_FOUND_AUTHORISED,
       });
 
     res.json({
       success: true,
-      message: 'Update user success!',
+      message: MSG_UPDATE_SUCCESS,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
   }
 });
 

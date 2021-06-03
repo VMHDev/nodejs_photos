@@ -8,6 +8,15 @@ const Token = require('../models/Token');
 const verifyToken = require('../middleware/auth');
 const { generateTokens } = require('../utils/helper');
 const { REFRESH_TOKEN_SECRET } = require('../constants/system');
+const {
+  MSG_UPDATE_SUCCESS,
+  MSG_USER_NOT_FOUND,
+  MSG_USER_NOT_FOUND_AUTHORISED,
+  MSG_LOGIN_INFO_MISS,
+  MSG_LOGIN_INFO_INCORRECT,
+  MSG_REFRESH_TOKEN_NONE,
+  MSG_CREATE_SUCCESS,
+} = require('../constants/message');
 
 // @route POST api/auth/login
 // @desc Post Login user
@@ -19,7 +28,7 @@ router.post('/login', async (req, res) => {
   if (!email || !password)
     return res
       .status(400)
-      .json({ success: false, message: 'Missing email and/or password' });
+      .json({ success: false, message: MSG_LOGIN_INFO_MISS });
 
   try {
     // Check for existing user
@@ -27,14 +36,14 @@ router.post('/login', async (req, res) => {
     if (!user)
       return res
         .status(400)
-        .json({ success: false, message: 'Incorrect email or password' });
+        .json({ success: false, message: MSG_LOGIN_INFO_INCORRECT });
 
     // Email found
     const passwordValid = await argon2.verify(user.password, password);
     if (!passwordValid)
       return res
         .status(400)
-        .json({ success: false, message: 'Incorrect email or password' });
+        .json({ success: false, message: MSG_LOGIN_INFO_INCORRECT });
 
     // Create JWT
     const tokens = generateTokens({ id: user._id, email: user.email });
@@ -80,7 +89,7 @@ router.post('/token-refresh', async (req, res) => {
   if (!refreshToken)
     return res
       .status(401)
-      .json({ success: false, message: 'Refresh token is required' });
+      .json({ success: false, message: MSG_REFRESH_TOKEN_NONE });
 
   // Check for existing user
   const user = await User.findOne({ refresh_token: refreshToken });
@@ -88,7 +97,7 @@ router.post('/token-refresh', async (req, res) => {
   if (!user)
     return res
       .status(403)
-      .json({ success: false, message: 'Refresh token invalid' });
+      .json({ success: false, message: MSG_REFRESH_TOKEN_INVALID });
 
   try {
     // Verify refresh token
@@ -111,12 +120,14 @@ router.post('/token-refresh', async (req, res) => {
 
     res.json({
       success: true,
-      message: 'Update success!',
+      message: MSG_UPDATE_SUCCESS,
       token,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
   }
 });
 
@@ -128,7 +139,9 @@ router.get('/logout', verifyToken, async (req, res) => {
   const user = await User.findOne({ _id: req.userId });
 
   if (!user)
-    return res.status(403).json({ success: false, message: 'User not found' });
+    return res
+      .status(403)
+      .json({ success: false, message: MSG_USER_NOT_FOUND });
 
   try {
     // Remove refresh token in database
@@ -145,11 +158,13 @@ router.get('/logout', verifyToken, async (req, res) => {
 
     res.json({
       success: true,
-      message: 'Update success!',
+      message: MSG_UPDATE_SUCCESS,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
   }
 });
 
@@ -158,16 +173,16 @@ router.get('/logout', verifyToken, async (req, res) => {
 // @access Private
 router.put('/password/:id', async (req, res) => {
   if (!req.params.id) {
-    return res.status(400).json({ success: false, message: 'User undefined' });
+    return res
+      .status(400)
+      .json({ success: false, message: MSG_USER_UNDEFINED });
   }
 
   const { password } = req.body;
 
   // Simple validation
   if (!password)
-    return res
-      .status(400)
-      .json({ success: false, message: 'Password is required' });
+    return res.status(400).json({ success: false, message: MSG_PASSWORD_NONE });
 
   // Update data
   try {
@@ -188,16 +203,18 @@ router.put('/password/:id', async (req, res) => {
     if (!updatedUser)
       return res.status(401).json({
         success: false,
-        message: 'User not found or user not authorised',
+        message: MSG_USER_NOT_FOUND_AUTHORISED,
       });
 
     res.json({
       success: true,
-      message: 'Update user success!',
+      message: MSG_UPDATE_SUCCESS,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
   }
 });
 
@@ -212,7 +229,9 @@ router.get('/token-password/:token', async (req, res) => {
     res.json({ success: true, token_info });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
   }
 });
 
@@ -226,7 +245,7 @@ router.post('/token-password', async (req, res) => {
   if (!token || !user_id)
     return res
       .status(400)
-      .json({ success: false, message: 'Missing user_id and/or token' });
+      .json({ success: false, message: MSG_PASSWORD_INFO_MISS });
 
   try {
     // All good
@@ -236,12 +255,14 @@ router.post('/token-password', async (req, res) => {
     // Response
     res.json({
       success: true,
-      message: 'Token created successfully',
+      message: MSG_CREATE_SUCCESS,
       token: newToken.token,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
   }
 });
 
