@@ -4,11 +4,12 @@ const verifyToken = require('../middleware/auth');
 
 const Photo = require('../models/Photo');
 const {
+  MSG_UPDATE_SUCCESS,
+  MSG_CREATE_SUCCESS,
   MSG_INTERNAL_SERVER_ERROR,
   MSG_PHOTO_NONE,
   MSG_PHOTO_CATEGORY_NONE,
   MSG_PHOTO_TITLE_NONE,
-  MSG_CREATE_SUCCESS,
   MSG_PHOTO_NOT_FOUND_AUTHORISED,
 } = require('../constants/message');
 

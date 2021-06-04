@@ -7,14 +7,14 @@ const verifyToken = require('../middleware/auth');
 const User = require('../models/User');
 const { ACCESS_TOKEN_SECRET } = require('../constants/system');
 const {
+  MSG_UPDATE_SUCCESS,
   MSG_INTERNAL_SERVER_ERROR,
+  MSG_USER_NOT_FOUND_AUTHORISED,
+  MSG_USER_UNDEFINED,
   MSG_USER_INFO_MISS,
   MSG_EMAIL_EXIST,
-  MSG_UPDATE_SUCCESS,
-  MSG_USER_UNDEFINED,
-  MSG_NAME_NONE,
   MSG_EMAIL_NONE,
-  MSG_USER_NOT_FOUND_AUTHORISED,
+  MSG_NAME_NONE,
 } = require('../constants/message');
 
 // @route GET api/user

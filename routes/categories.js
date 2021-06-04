@@ -4,9 +4,10 @@ const verifyToken = require('../middleware/auth');
 
 const Category = require('../models/Category');
 const {
+  MSG_UPDATE_SUCCESS,
+  MSG_CREATE_SUCCESS,
   MSG_INTERNAL_SERVER_ERROR,
   MSG_NAME_NONE,
-  MSG_CREATE_SUCCESS,
   MSG_CATEGORY_NOT_FOUND_AUTHORISED,
 } = require('../constants/message');
 

@@ -10,12 +10,18 @@ const { generateTokens } = require('../utils/helper');
 const { REFRESH_TOKEN_SECRET } = require('../constants/system');
 const {
   MSG_UPDATE_SUCCESS,
+  MSG_CREATE_SUCCESS,
+  MSG_INTERNAL_SERVER_ERROR,
   MSG_USER_NOT_FOUND,
   MSG_USER_NOT_FOUND_AUTHORISED,
+  MSG_USER_UNDEFINED,
+  MSG_USER_LOGIN_SUCCESS,
   MSG_LOGIN_INFO_MISS,
   MSG_LOGIN_INFO_INCORRECT,
   MSG_REFRESH_TOKEN_NONE,
-  MSG_CREATE_SUCCESS,
+  MSG_REFRESH_TOKEN_INVALID,
+  MSG_PASSWORD_NONE,
+  MSG_PASSWORD_INFO_MISS,
 } = require('../constants/message');
 
 // @route POST api/auth/login
@@ -71,13 +77,15 @@ router.post('/login', async (req, res) => {
 
     res.json({
       success: true,
-      message: 'User logged in successfully',
+      message: MSG_USER_LOGIN_SUCCESS,
       accessToken: tokens.accessToken,
       user: userPublic,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
   }
 });
 

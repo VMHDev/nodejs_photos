@@ -6,6 +6,7 @@ const MSG_USER_NOT_FOUND = 'User not found';
 const MSG_USER_NOT_FOUND_AUTHORISED = 'User not found or user not authorised';
 const MSG_USER_UNDEFINED = 'User undefined';
 const MSG_USER_INFO_MISS = 'Missing email, name and/or password';
+const MSG_USER_LOGIN_SUCCESS = 'User logged in successfully';
 
 const MSG_EMAIL_EXIST = 'Email is existing';
 const MSG_NAME_NONE = 'Name is required';
@@ -38,6 +39,7 @@ module.exports = {
   MSG_USER_NOT_FOUND_AUTHORISED,
   MSG_USER_UNDEFINED,
   MSG_USER_INFO_MISS,
+  MSG_USER_LOGIN_SUCCESS,
 
   MSG_EMAIL_EXIST,
   MSG_EMAIL_NONE,
