@@ -50,9 +50,12 @@ Content-Type: application/json
 
 ###
 # Logout
-GET http://localhost:3003/api/auth/logout
-Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI2MDQ3MDYsImV4cCI6MTYyMjYwNDc2Nn0.5WjgKbRgXtkm-6gF-ISJ9Xs-9qJMjJirKCeLa_ND4nWi8W5ZWDkW9mFNTPhFPLyhZ6xbLm-co9RVVzpbSYpdsg
+POST http://localhost:3003/api/auth/logout
+Content-Type: application/json
 
+{
+    "userId": "609dff5e44be6645c0eb7b9f"
+}
 ###################################################
 
 ###

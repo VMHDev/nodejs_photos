@@ -17,6 +17,7 @@ const MSG_LOGIN_INFO_INCORRECT = 'Incorrect email or password';
 
 const MSG_REFRESH_TOKEN_NONE = 'Refresh token is required';
 const MSG_REFRESH_TOKEN_INVALID = 'Refresh token invalid';
+const MSG_REFRESH_TOKEN_EXPIRE = 'Refresh token expire';
 const MSG_ACCESS_TOKEN_NONE = 'Access token not found';
 const MSG_ACCESS_TOKEN_INVALID = 'Access token invalid';
 
@@ -50,6 +51,7 @@ module.exports = {
 
   MSG_REFRESH_TOKEN_NONE,
   MSG_REFRESH_TOKEN_INVALID,
+  MSG_REFRESH_TOKEN_EXPIRE,
   MSG_ACCESS_TOKEN_NONE,
   MSG_ACCESS_TOKEN_INVALID,
 

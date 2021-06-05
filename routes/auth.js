@@ -20,6 +20,7 @@ const {
   MSG_LOGIN_INFO_INCORRECT,
   MSG_REFRESH_TOKEN_NONE,
   MSG_REFRESH_TOKEN_INVALID,
+  MSG_REFRESH_TOKEN_EXPIRE,
   MSG_PASSWORD_NONE,
   MSG_PASSWORD_INFO_MISS,
 } = require('../constants/message');
@@ -107,10 +108,19 @@ router.post('/token-refresh', async (req, res) => {
       .status(403)
       .json({ success: false, message: MSG_REFRESH_TOKEN_INVALID });
 
+  // Verify refresh token
   try {
-    // Verify refresh token
     jwt.verify(refreshToken, REFRESH_TOKEN_SECRET);
+  } catch (error) {
+    return res.status(403).json({
+      success: false,
+      message: MSG_REFRESH_TOKEN_EXPIRE,
+      isExpire: true,
+    });
+  }
 
+  // Create new token
+  try {
     // Create JWT
     const token = generateTokens({ id: user._id, email: user.email });
 
@@ -139,16 +149,16 @@ router.post('/token-refresh', async (req, res) => {
   }
 });
 
-// @route GET api/auth/logout
-// @desc Get Logout
-// @access Private
-router.get('/logout', verifyToken, async (req, res) => {
+// @route POST api/auth/logout
+// @desc Post Logout
+// @access Public
+router.post('/logout', async (req, res) => {
   // Check for existing user
-  const user = await User.findOne({ _id: req.userId });
+  const user = await User.findOne({ _id: req.body.userId });
 
   if (!user)
     return res
-      .status(403)
+      .status(401)
       .json({ success: false, message: MSG_USER_NOT_FOUND });
 
   try {
