@@ -22,9 +22,10 @@ const {
 // @access Public
 router.post('/', async (req, res) => {
   try {
-    const users = await User.find({ _id: { $nin: [req.body.userId] } }).select(
-      '-password -__v -registered_date'
-    );
+    const users = await User.find({
+      _id: { $nin: [req.body.userId] },
+      permission: { $nin: [99] },
+    }).select('-password -__v -registered_date');
     res.json({ success: true, users });
   } catch (error) {
     console.log(error);
