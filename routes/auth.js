@@ -69,11 +69,12 @@ router.post('/login', async (req, res) => {
 
     // Remove info unnecessary
     // Ref: https://medium.com/data-scraper-tips-tricks/create-an-object-from-another-in-one-line-es6-96125ec6c834
-    let userPublic = (({ _id, name, email, refresh_token }) => ({
+    let userPublic = (({ _id, name, email, refresh_token, permission }) => ({
       _id,
       name,
       email,
       refresh_token,
+      permission,
     }))(updatedUser);
 
     res.json({

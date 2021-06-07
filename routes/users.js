@@ -18,7 +18,24 @@ const {
 } = require('../constants/message');
 
 // @route GET api/user
-// @desc Get user with email
+// @desc Get all user except UserId
+// @access Public
+router.post('/', async (req, res) => {
+  try {
+    const users = await User.find({ _id: { $nin: [req.body.userId] } }).select(
+      '-password -__v -registered_date'
+    );
+    res.json({ success: true, users });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
+  }
+});
+
+// @route GET api/user
+// @desc Get user with id
 // @access Public
 router.get('/:id', async (req, res) => {
   try {
@@ -125,6 +142,48 @@ router.put('/:id', verifyToken, async (req, res) => {
       updatedUser,
       { new: true }
     );
+
+    // User not authorised to update user or user not found
+    if (!updatedUser)
+      return res.status(401).json({
+        success: false,
+        message: MSG_USER_NOT_FOUND_AUTHORISED,
+      });
+
+    res.json({
+      success: true,
+      message: MSG_UPDATE_SUCCESS,
+    });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
+  }
+});
+
+// @route PUT api/user
+// @desc Put Set permission user
+// @access Private
+router.put('/set-permission/:id', verifyToken, async (req, res) => {
+  if (!req.params.id) {
+    return res
+      .status(400)
+      .json({ success: false, message: MSG_USER_UNDEFINED });
+  }
+
+  const { isAdmin } = req.body;
+  const permission = isAdmin ? 1 : 0;
+
+  // Update data
+  try {
+    let updatedUser = {
+      permission,
+    };
+
+    const userUpdateCondition = { _id: req.params.id };
+
+    updatedUser = await User.findOneAndUpdate(userUpdateCondition, updatedUser);
 
     // User not authorised to update user or user not found
     if (!updatedUser)

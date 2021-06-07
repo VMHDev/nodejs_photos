@@ -1,5 +1,16 @@
 # Install extension REST Client for run
     # https://marketplace.visualstudio.com/items?itemName=humao.rest-client
+
+###
+# Get users except userId
+POST http://localhost:3003/api/user
+Content-Type: application/json
+
+{
+    "userId": "609dff5e44be6645c0eb7b9f"
+}
+###################################################
+
 # Get user with id
 GET http://localhost:3003/api/user/609dff5e44be6645c0eb7b9f
 
@@ -67,6 +78,17 @@ Content-Type: application/json
 {
     "name": "admin",
     "email": "admin@admin.com"
+}
+###################################################
+
+###
+# Set permission user
+PUT http://localhost:3003/api/user/set-permission/609e02bf44be6645c0eb7ba0
+Authorization: Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDlkZmY1ZTQ0YmU2NjQ1YzBlYjdiOWYiLCJ1c2VyRW1haWwiOiJhZG1pbkBhZG1pbi5jb20iLCJpYXQiOjE2MjI5OTQxNjUsImV4cCI6MTYyMjk5NDIyNX0.rJ2jQL25NmeoAuk-bJYc3my1Kf9kPRR8y_8yrRvdvVizzRTXG7P0kuHL5cf2XO60wOEK8JME3yEUk0cbwigxPg
+Content-Type: application/json
+
+{
+    "isAdmin": true
 }
 ###################################################
 
