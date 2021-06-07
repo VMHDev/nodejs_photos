@@ -3,6 +3,15 @@ const router = express.Router();
 const verifyToken = require('../middleware/auth');
 
 const Photo = require('../models/Photo');
+const {
+  MSG_UPDATE_SUCCESS,
+  MSG_CREATE_SUCCESS,
+  MSG_INTERNAL_SERVER_ERROR,
+  MSG_PHOTO_NONE,
+  MSG_PHOTO_CATEGORY_NONE,
+  MSG_PHOTO_TITLE_NONE,
+  MSG_PHOTO_NOT_FOUND_AUTHORISED,
+} = require('../constants/message');
 
 // @route GET api/photo
 // @desc Get all photo
@@ -16,7 +25,9 @@ router.get('/', verifyToken, async (req, res) => {
     res.json({ success: true, photos });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
   }
 });
 
@@ -32,7 +43,9 @@ router.get('/public', async (req, res) => {
     res.json({ success: true, photos });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
   }
 });
 
@@ -48,7 +61,9 @@ router.get('/user', verifyToken, async (req, res) => {
     res.json({ success: true, photos });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
   }
 });
 
@@ -60,17 +75,15 @@ router.post('/', verifyToken, async (req, res) => {
 
   // Validation
   if (!path)
-    return res
-      .status(400)
-      .json({ success: false, message: 'Photo is required' });
+    return res.status(400).json({ success: false, message: MSG_PHOTO_NONE });
   if (!categoryId)
     return res
       .status(400)
-      .json({ success: false, message: 'Category is required' });
+      .json({ success: false, message: MSG_PHOTO_CATEGORY_NONE });
   if (!title)
     return res
       .status(400)
-      .json({ success: false, message: 'Title is required' });
+      .json({ success: false, message: MSG_PHOTO_TITLE_NONE });
 
   try {
     const newPhoto = new Photo({
@@ -96,12 +109,14 @@ router.post('/', verifyToken, async (req, res) => {
 
     res.json({
       success: true,
-      message: 'Add photo success!',
+      message: MSG_CREATE_SUCCESS,
       photo: resPhoto,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
   }
 });
 
@@ -113,17 +128,15 @@ router.put('/:id', verifyToken, async (req, res) => {
 
   // Validation
   if (!path)
-    return res
-      .status(400)
-      .json({ success: false, message: 'Photo is required' });
+    return res.status(400).json({ success: false, message: MSG_PHOTO_NONE });
   if (!category)
     return res
       .status(400)
-      .json({ success: false, message: 'Category is required' });
+      .json({ success: false, message: MSG_PHOTO_CATEGORY_NONE });
   if (!title)
     return res
       .status(400)
-      .json({ success: false, message: 'Title is required' });
+      .json({ success: false, message: MSG_PHOTO_TITLE_NONE });
 
   try {
     let updatedPhoto = {
@@ -156,17 +169,19 @@ router.put('/:id', verifyToken, async (req, res) => {
     if (!updatedPhoto)
       return res.status(401).json({
         success: false,
-        message: 'Photo not found or user not authorised',
+        message: MSG_PHOTO_NOT_FOUND_AUTHORISED,
       });
 
     res.json({
       success: true,
-      message: 'Update photo success!',
+      message: MSG_UPDATE_SUCCESS,
       photo: resPhoto,
     });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
   }
 });
 
@@ -182,13 +197,15 @@ router.delete('/:id', verifyToken, async (req, res) => {
     if (!deletedPhoto)
       return res.status(401).json({
         success: false,
-        message: 'Photo not found or user not authorised',
+        message: MSG_PHOTO_NOT_FOUND_AUTHORISED,
       });
 
     res.json({ success: true, photo: deletedPhoto });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ success: false, message: 'Internal server error' });
+    res
+      .status(500)
+      .json({ success: false, message: MSG_INTERNAL_SERVER_ERROR });
   }
 });
 

@@ -1,5 +1,9 @@
 const jwt = require('jsonwebtoken');
 const { ACCESS_TOKEN_SECRET } = require('../constants/system');
+const {
+  MSG_ACCESS_TOKEN_NONE,
+  MSG_ACCESS_TOKEN_INVALID,
+} = require('../constants/message');
 
 const verifyToken = (req, res, next) => {
   const authHeader = req.header('Authorization');
@@ -8,7 +12,7 @@ const verifyToken = (req, res, next) => {
   if (!token)
     return res
       .status(401)
-      .json({ success: false, message: 'Access token not found' });
+      .json({ success: false, message: MSG_ACCESS_TOKEN_NONE });
 
   try {
     const decoded = jwt.verify(token, ACCESS_TOKEN_SECRET);
@@ -19,7 +23,9 @@ const verifyToken = (req, res, next) => {
     next();
   } catch (error) {
     console.log(error);
-    return res.status(403).json({ success: false, message: 'Invalid token' });
+    return res
+      .status(403)
+      .json({ success: false, message: MSG_ACCESS_TOKEN_INVALID });
   }
 };
 
